@@ -3,12 +3,11 @@
         <div class="TaskPlan">
             <img :src="getPlan.img.path" alt="">
             <div class="">
-                <p>{{taskname}}</p>
-                <h2>{{getPlan.name}}</h2>
+                <p>{{ taskname }}</p>
+                <h2>{{ getPlan.name }}</h2>
             </div>
         </div>
         <div class="TaskItems">
-
             <Task v-for="item in getTask" :item="item" :key="item.id" />
         </div>
     </div>
@@ -22,10 +21,10 @@ export default {
 
     computed: {
         getTask() {
-            return this.getPlan.tasks??[]
+            return this.getPlan.tasks ?? []
         },
         getPlan() {
-            return this.$store.getters.setTaskid(2) ?? {}
+            return this.$store.getters.setTaskid(this.$route.params.id) ?? {}
         },
         taskname() {
             if (this.getTask.length == 0) {
@@ -35,7 +34,7 @@ export default {
             } if (this.getTask.length >= 2 && this.getTask.length < 5) {
                 return this.getTask.length + ' задачи'
             }
-          return this.getTask.length  + ' задач'
+            return this.getTask.length + ' задач'
         }
     },
 }
@@ -45,8 +44,8 @@ export default {
     padding: 10px;
     border-radius: 10px;
     margin-top: 30px;
-    background-color: rgba(0, 0, 0, 0.02);
-
+    background-color: rgb(255 255 255);
+    box-shadow: rgb(0 0 0 / 5%) 0 0 30px;
     &Plan {
         display: flex;
         height: 80px;
@@ -54,8 +53,6 @@ export default {
 
         img {
             padding: 5px;
-
-            //  object-fit: cover;
         }
     }
 

@@ -26,5 +26,6 @@ Route::get('/get-plan', [PlanController::class, 'get']);
 
 
 Route::post('/create-img', [ImgController::class, 'create']);
+Route::get('/get-img', [ImgController::class, 'get']);
 
 Route::post('/create-task', [TaskController::class, 'create']);

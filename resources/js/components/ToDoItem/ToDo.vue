@@ -1,5 +1,5 @@
 <template >
-    <div class="ToDo">
+    <div class="ToDo" @click="$router.push('/task/' +item.id)">
         <img :src="item.img.path" alt="" class="ToDoIcon">
         <div>
             <h5>{{ item.name }}</h5>
@@ -11,8 +11,8 @@
 <script>
 export default {
     props: ['item'],
-     mounted(){
- 
+    mounted() {
+
     },
     computed: {
         taskname() {
@@ -23,7 +23,7 @@ export default {
             } if (this.item.tasks.length >= 2 && this.item.task < 5) {
                 return this.item.tasks.length + ' задачи'
             }
-          return this.item.tasks.length  + ' задач'
+            return this.item.tasks.length + ' задач'
         }
     }
 }
@@ -41,6 +41,20 @@ export default {
     padding: 15px;
     box-shadow: #0064741c 0 0 30px;
     align-items: center;
+    animation-iteration-count: 1;
+    animation: transformScale 0.3s  ;
+
+    @keyframes transformScale {
+        from {
+            transform: scale(0.1);
+        }
+
+
+        to {
+            transform: scale(1);
+        }
+    }
+
 
     &Icon {
         height: calc(100% - 30px);

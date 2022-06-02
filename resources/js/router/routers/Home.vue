@@ -21,7 +21,6 @@ export default {
 .Home {
     position: relative;
     z-index: 1;
-
     &Circle {
         position: absolute;
         width: 100vw;

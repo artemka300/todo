@@ -1,21 +1,21 @@
 <template >
     <div class="root">
-        <input type="checkbox" @click="onChech" :checked="item.done"   name="a">
+        <input type="checkbox" @click="onChech" :checked="item.done" name="a">
         <p :class="done">{{ item.name }}</p>
     </div>
 </template>
 <script>
 export default {
     props: ['item'],
-    methods:{
-            onChech(){
-                this.item.done = !this.item.done
-            }
+    methods: {
+        onChech() {
+            this.item.done = !this.item.done
+        }
     },
-    computed:{
-        done(){
+    computed: {
+        done() {
             if (this.item.done == true) {
-              return 't-d'
+                return 't-d'
             }
             return ' '
         }
@@ -23,9 +23,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.t-d{
+.t-d {
     text-decoration: line-through;
 }
+
 .root {
     display: flex;
     align-items: center;

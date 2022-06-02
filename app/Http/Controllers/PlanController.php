@@ -12,7 +12,7 @@ class PlanController extends Controller
          Plan::create([
             'name'=>$request->name,
             'del'=>false,
-            'img_id'=>1,
+            'img_id'=>$request->imgid,
             'user_id'=>1,
          ]);
         return response()->json(null,204);
