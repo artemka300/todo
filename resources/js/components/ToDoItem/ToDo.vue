@@ -20,7 +20,7 @@ export default {
                 return 'Нет задач'
             } if (this.item.tasks.length == 1) {
                 return this.item.tasks.length + ' задача'
-            } if (this.item.tasks.length >= 2 && this.item.task < 5) {
+            } if (this.item.tasks.length >= 2 && this.item.tasks.length < 5) {
                 return this.item.tasks.length + ' задачи'
             }
             return this.item.tasks.length + ' задач'
@@ -48,8 +48,6 @@ export default {
         from {
             transform: scale(0.1);
         }
-
-
         to {
             transform: scale(1);
         }

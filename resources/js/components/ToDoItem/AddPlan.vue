@@ -1,6 +1,6 @@
 <template>
     <AddImg v-if="showAddImg" :onShowImg='onShowImg' />
-    <div class="AddPlan" :class="classplan">
+    <div class="AddPlan" :class="clossplan">
         <img src="../../../static/img/close.png" class="close" @click="onShowAddPlan(false)" alt="">
         <div class="AddPlanSetting">
             <div class="">
@@ -28,7 +28,7 @@ export default {
         AddImg
     },
     computed: {
-        classplan() {
+        clossplan() {
             if (this.showAddPlan) {
                 return 'b0'
             }

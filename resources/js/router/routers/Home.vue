@@ -21,6 +21,7 @@ export default {
 .Home {
     position: relative;
     z-index: 1;
+
     &Circle {
         position: absolute;
         width: 100vw;
@@ -43,10 +44,11 @@ export default {
         height: 80px;
         align-items: flex-start;
         justify-content: space-between;
-    background: rgba(255, 255, 255, 0.5);
-    padding: 10px;
-    border-radius: 10px;
-       box-shadow: #00000013 0 0 30px;
+        background: rgba(255, 255, 255, 0.5);
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: #00000013 0 0 30px;
+
         @media (max-width: 500px) {
             height: 65px;
         }

@@ -1,5 +1,5 @@
 <template>
-    <div class="PlanToDo" >
+    <div class="PlanToDo">
         <AddPlan :showAddPlan="showAddPlan" :onShowAddPlan="onShowAddPlan" />
         <h2>Категория задач</h2>
         <img src="../../../../static/img/plus.png" v-if="!showAddPlan" alt="" class="PlanToDo_AddPlan"
@@ -27,7 +27,6 @@ export default {
         }
     },
     computed: {
-
         getToDo() {
             return this.$store.getters.setToDo
         }

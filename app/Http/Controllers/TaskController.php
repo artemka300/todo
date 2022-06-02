@@ -13,10 +13,10 @@ class TaskController extends Controller
             'name'=> $request->name,
             'done'=> false,
             'del'=> false,
-            'create_date'=> date("Y-m-d H:i:s"),
-            'end_date'=>date("Y-m-d H:i:s",strtotime('+ 1 days')),
-            'plan_id'=> 2
+            'create_date'=> $request->datenow,
+            'end_date'=>$request->setdate,
+            'plan_id'=> $request->idplan
         ]);
-        return '';
+        return response()->json(null,204);
     }
 }
