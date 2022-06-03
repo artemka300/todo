@@ -17957,19 +17957,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _components_Task_TaskItem_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../components/Task/TaskItem.vue */ "./resources/js/components/Task/TaskItem.vue");
-/* harmony import */ var _components_Task_AddTask_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/Task/AddTask.vue */ "./resources/js/components/Task/AddTask.vue");
+/* harmony import */ var date_and_time__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! date-and-time */ "./node_modules/date-and-time/esm/date-and-time.es.js");
+/* harmony import */ var _components_Task_TaskItem_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/Task/TaskItem.vue */ "./resources/js/components/Task/TaskItem.vue");
+/* harmony import */ var _components_Task_AddTask_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/Task/AddTask.vue */ "./resources/js/components/Task/AddTask.vue");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Task: _components_Task_TaskItem_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    AddTask: _components_Task_AddTask_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Task: _components_Task_TaskItem_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    AddTask: _components_Task_AddTask_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
       showAddTask: false,
-      select: 0
+      select: 1
     };
   },
   methods: {
@@ -17997,6 +17999,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    dateTime: function dateTime() {
+      return date_and_time__WEBPACK_IMPORTED_MODULE_0__["default"].format(new Date(), 'DD');
+    },
     getTask: function getTask() {
       var _this$getPlan$tasks;
 
@@ -18627,28 +18632,44 @@ var _hoisted_4 = {
   "class": "ToDoIcon"
 };
 var _hoisted_5 = {
-  "class": ""
+  key: 2,
+  "class": "calendar"
 };
 var _hoisted_6 = {
-  "class": "select-box"
+  "class": ""
 };
 var _hoisted_7 = {
-  value: "0"
+  key: 1,
+  "class": "select-box"
 };
 var _hoisted_8 = {
+  value: "0"
+};
+var _hoisted_9 = {
   key: 0,
   value: "1"
 };
-var _hoisted_9 = {
+var _hoisted_10 = {
   key: 1,
   value: "2"
 };
-var _hoisted_10 = {
+var _hoisted_11 = {
   key: 2,
   value: "3"
 };
-var _hoisted_11 = {
+var _hoisted_12 = {
+  key: 2,
   "class": "TaskItems"
+};
+var _hoisted_13 = {
+  key: 3,
+  "class": ""
+};
+var _hoisted_14 = {
+  key: 0
+};
+var _hoisted_15 = {
+  key: 1
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_AddTask = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AddTask");
@@ -18674,26 +18695,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     alt: ""
   }, null, 8
   /* PROPS */
-  , _hoisted_3)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", _hoisted_4)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.taskname), 1
+  , _hoisted_3)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", _hoisted_4)), _ctx.$route.params.id == 'today' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h5", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.dateTime), 1
+  /* TEXT */
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.taskname), 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getPlan.name), 1
   /* TEXT */
-  )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  )])]), $options.filtersCount($data.select).length != 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     name: "dfdfd",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $data.select = $event;
     })
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", _hoisted_7, "Все - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.filtersCount(0).length), 1
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", _hoisted_8, "Все - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.filtersCount(0).length), 1
   /* TEXT */
-  ), $options.filtersCount(1).length !== 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", _hoisted_8, "Текущие - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.filtersCount(1).length), 1
+  ), $options.filtersCount(1).length !== 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", _hoisted_9, "Текущие - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.filtersCount(1).length), 1
   /* TEXT */
-  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.filtersCount(2).length !== 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", _hoisted_9, "Выполненные - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.filtersCount(2).length), 1
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.filtersCount(2).length !== 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", _hoisted_10, "Выполненные - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.filtersCount(2).length), 1
   /* TEXT */
-  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.filtersCount(3).length !== 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", _hoisted_10, "Удаленные - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.filtersCount(3).length), 1
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.filtersCount(3).length !== 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", _hoisted_11, "Удаленные - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.filtersCount(3).length), 1
   /* TEXT */
   )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.select]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filtersCount($data.select), function (item) {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.select]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.filtersCount($data.select).length != 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_12, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filtersCount($data.select), function (item) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Task, {
       item: item,
       key: item.id
@@ -18702,7 +18725,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , ["item"]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
+  ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13, [_ctx.$route.params.id != 'today' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h4", _hoisted_14, "Создайте задачу")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h4", _hoisted_15, "У вас не задач на сегодня"))]))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
 
 /***/ }),
@@ -19108,7 +19131,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".calendar {\n  position: absolute;\n  z-index: 3;\n  top: 40%;\n  left: 49px;\n  font-size: 2rem;\n  color: white;\n  font-family: Arial, Helvetica, sans-serif;\n  -webkit-text-stroke: 2px black;\n  text-align: center;\n}\n.Task {\n  position: relative;\n  padding: 10px;\n  border-radius: 10px;\n  margin-top: 30px;\n  background-color: rgb(255, 255, 255);\n  box-shadow: rgba(0, 0, 0, 0.05) 0 0 30px;\n}\n.TaskPlan {\n  display: flex;\n  height: 80px;\n  gap: 15px;\n}\n.TaskPlan img {\n  padding: 5px;\n}\n.TaskItems {\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.select-box {\n  min-width: 15ch;\n  max-width: 25ch;\n  border: 2px solid rebeccapurple;\n  background-color: #fff;\n  margin: 15px 0 5px 0;\n  position: relative;\n  border-radius: 5px;\n}\n.select-box select {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-color: transparent;\n  border: none;\n  padding: 0 1em 0 0;\n  margin: 0;\n  width: 100%;\n  font-family: inherit;\n  font-size: inherit;\n  cursor: inherit;\n  line-height: inherit;\n  outline: none;\n  width: 100%;\n  border-radius: 0.25em;\n  padding: 0.25em 0.5em;\n  font-size: 1.25rem;\n  cursor: pointer;\n  line-height: 1.1;\n}\n.select-box::after {\n  content: \"\";\n  width: 0.8em;\n  position: absolute;\n  height: 0.5em;\n  top: 40%;\n  right: 10px;\n  background-color: black;\n  -webkit-clip-path: polygon(100% 0%, 0 0%, 50% 100%);\n  clip-path: polygon(100% 0%, 0 0%, 50% 100%);\n}\n.select-box:-ms-expand {\n  display: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".calendar {\n  position: absolute;\n  z-index: 3;\n  top: 35%;\n  left: 22px;\n  font-size: 2rem;\n  color: white;\n  font-family: Arial, Helvetica, sans-serif;\n  -webkit-text-stroke: 2px black;\n  text-align: center;\n}\n.Task {\n  position: relative;\n  padding: 10px;\n  border-radius: 10px;\n  margin-top: 30px;\n  background-color: rgb(255, 255, 255);\n  box-shadow: rgba(0, 0, 0, 0.05) 0 0 30px;\n}\n.TaskPlan {\n  display: flex;\n  height: 80px;\n  gap: 15px;\n  position: relative;\n}\n.TaskPlan img {\n  padding: 5px;\n}\n.TaskItems {\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.select-box {\n  min-width: 15ch;\n  max-width: 25ch;\n  border: 2px solid rebeccapurple;\n  background-color: #fff;\n  margin: 15px 0 5px 0;\n  position: relative;\n  border-radius: 5px;\n}\n.select-box select {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-color: transparent;\n  border: none;\n  padding: 0 1em 0 0;\n  margin: 0;\n  width: 100%;\n  font-family: inherit;\n  font-size: inherit;\n  cursor: inherit;\n  line-height: inherit;\n  outline: none;\n  width: 100%;\n  border-radius: 0.25em;\n  padding: 0.25em 0.5em;\n  font-size: 1.25rem;\n  cursor: pointer;\n  line-height: 1.1;\n}\n.select-box::after {\n  content: \"\";\n  width: 0.8em;\n  position: absolute;\n  height: 0.5em;\n  top: 40%;\n  right: 10px;\n  background-color: black;\n  -webkit-clip-path: polygon(100% 0%, 0 0%, 50% 100%);\n  clip-path: polygon(100% 0%, 0 0%, 50% 100%);\n}\n.select-box:-ms-expand {\n  display: none;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

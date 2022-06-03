@@ -4,14 +4,15 @@
         <img v-if="!showAddTask" src="../../../../static/img/plus.png" alt="" @click="onShowTask(true)"
             class="PlanToDo_AddPlan">
         <div class="TaskPlan">
-            <img :src="getPlan.img.path" alt="" v-if="$route.params.id !='today'">
+            <img :src="getPlan.img.path" alt="" v-if="$route.params.id != 'today'">
             <img src="../../../../static/img/calendar.png" v-else alt="" class="ToDoIcon">
+            <h5 class="calendar" v-if="$route.params.id == 'today'">{{ dateTime }}</h5>
             <div class="">
                 <p>{{ taskname }}</p>
                 <h2>{{ getPlan.name }}</h2>
             </div>
         </div>
-        <div class="select-box">
+        <div class="select-box" v-if="filtersCount(select).length != 0">
             <select name="dfdfd" v-model="select">
                 <option value="0">Все - {{ filtersCount(0).length }} </option>
                 <option v-if="filtersCount(1).length !== 0" value="1">Текущие - {{ filtersCount(1).length }} </option>
@@ -20,12 +21,19 @@
                 <option v-if="filtersCount(3).length !== 0" value="3">Удаленные - {{ filtersCount(3).length }} </option>
             </select>
         </div>
-        <div class="TaskItems">
+
+
+        <div class="TaskItems" v-if="filtersCount(select).length != 0">
             <Task v-for="item in filtersCount(select)" :item="item" :key="item.id" />
+        </div>
+        <div class="" v-else>
+            <h4 v-if="$route.params.id != 'today'">Создайте задачу</h4>
+                 <h4 v-else>У вас не задач на сегодня</h4>
         </div>
     </div>
 </template>
 <script>
+import DateFormat from 'date-and-time';
 import Task from '../../../components/Task/TaskItem.vue'
 import AddTask from '../../../components/Task/AddTask.vue'
 export default {
@@ -35,7 +43,7 @@ export default {
     data() {
         return {
             showAddTask: false,
-            select: 0
+            select: 1
         }
     },
     methods: {
@@ -60,7 +68,9 @@ export default {
         },
     },
     computed: {
-
+        dateTime() {
+            return DateFormat.format(new Date(), 'DD')
+        },
         getTask() {
             return this.getPlan.tasks ?? []
         },
@@ -91,8 +101,8 @@ export default {
 .calendar {
     position: absolute;
     z-index: 3;
-    top: 40%;
-    left: 49px;
+    top: 35%;
+    left: 22px;
     font-size: 2rem;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
@@ -112,6 +122,7 @@ export default {
         display: flex;
         height: 80px;
         gap: 15px;
+        position: relative;
 
         img {
             padding: 5px;

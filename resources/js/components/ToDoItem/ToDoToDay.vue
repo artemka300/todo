@@ -12,11 +12,9 @@
 <script>
 import DateFormat from 'date-and-time';
 export default {
-
     mounted() {
 
     },
-
     computed: {
         dateTime() {
             return DateFormat.format(new Date(), 'DD')
