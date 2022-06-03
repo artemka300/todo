@@ -1,38 +1,57 @@
 <template >
-    <div class="ToDo" @click="$router.push('/task/' + item.id)">
-        <img :src="item.img.path" alt="" class="ToDoIcon">
+    <div class="ToDo" @click="$router.push('/task/today')" v-if="this.$store.getters.setTaskToday.length != 0">
+        <img src="../../../static/img/calendar.png" alt="" class="ToDoIcon">
+        <h5 class="calendar">{{ dateTime }}</h5>
         <div>
-            <h5>{{ item.name }}</h5>
-            <p>{{ taskname }}</p>
+            <h5>Задачи на сегодня</h5>
+            <p>{{ taskname }} </p>
         </div>
         <img src="../../../static/img/three-dots.png" alt="" class="ToDoEdit">
     </div>
 </template>
 <script>
+import DateFormat from 'date-and-time';
 export default {
-    props: ['item'],
+
     mounted() {
 
     },
+
     computed: {
+        dateTime() {
+            return DateFormat.format(new Date(), 'DD')
+        },
         taskname() {
-            if (this.item.tasks.length == 0) {
+            const count = this.$store.getters.setTaskToday.length
+            if (count == 0) {
                 return 'Нет задач'
-            } if (this.item.tasks.length == 1) {
-                return this.item.tasks.length + ' задача'
-            } if (this.item.tasks.length >= 2 && this.item.tasks.length < 5) {
-                return this.item.tasks.length + ' задачи'
+            } if (count == 1) {
+                return count + ' задача'
+            } if (count >= 2 && count < 5) {
+                return count + ' задачи'
             }
-            return this.item.tasks.length + ' задач'
+            return count + ' задач'
         }
     }
 }
 
 </script>
 <style lang="scss" scoped>
+.calendar {
+    position: absolute;
+    z-index: 3;
+    top: 40%;
+    left: 49px;
+    font-size: 2rem;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-text-stroke: 2px black;
+    text-align: center;
+}
+
 .ToDo {
-    position: relative;
     cursor: pointer;
+    position: relative;
     display: flex;
     height: 100px;
     justify-content: start;

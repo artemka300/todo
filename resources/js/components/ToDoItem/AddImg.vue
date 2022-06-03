@@ -20,7 +20,6 @@ export default {
         }
     },
     computed: {
-
         getImgs() {
             return this.$store.getters.setImgs
         }

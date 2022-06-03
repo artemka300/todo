@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-
+import DateFormat from 'date-and-time';
 // Create a new store instance.
 const store = createStore({
     state() {
@@ -34,6 +34,24 @@ const store = createStore({
             return state.todo.filter(item => {
                 return item.id == id
             })[0]
+        },
+        setTaskToday: (state) => {
+            let arr = [];
+            state.todo.forEach(el => {
+                el.tasks.forEach(item => {
+                    if (DateFormat.format(new Date(), 'YYYY-MM-DD') == DateFormat.format(new Date(item.end_date), 'YYYY-MM-DD')) {
+                        if (item.done == false && item.del == false) {
+                            if (DateFormat.format(new Date(), 'HH:mm') < DateFormat.format(new Date(item.end_date), 'HH:mm')) {
+                                arr.push(item)
+                            }
+
+                        }
+
+                    }
+                })
+            });
+            console.log(arr)
+            return arr;
         },
         setImgId: (state) => {
             return state.imgs.filter(item => {

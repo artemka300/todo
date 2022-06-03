@@ -1,12 +1,11 @@
 <template >
     <div class="root">
+        <input type="checkbox" :checked="item.done" @click="onDoneAPI()" :disabled="textTime.disabled" ref="checked"
+            name="a">
         <div>
-            <input type="checkbox" @click="onChech" :checked="item.done" name="a">
             <h5 :class="done">{{ item.name }}</h5>
-        </div>
-        <div>
-            <p>
-                {{ textTime }} закончится срок выполнения
+            <p :class="textTime.class">
+                {{ textTime.text }}
             </p>
 
         </div>
@@ -18,13 +17,43 @@ export default {
 
     props: ['item'],
     methods: {
+        onDoneAPI() {
+            this.onChech()
+            const form = new FormData()
+            form.append('id', this.item.id)
+            form.append('done', this.item.done)
+            form.append('del', this.item.del)
+            fetch('/api/update-task', {
+                method: 'POST',
+                body: form
+            }).then(r => {
+                if (r.status == 204) {
+                    this.$store.dispatch('getPlans');
+                    console.log("юхуууу")
+                }
+
+            })
+        },
+
         onChech() {
-            this.item.done = !this.item.done
+            if (this.item.done == true) {
+                this.item.done = true
+                this.$refs.checked.checked = true
+            }
+            else {
+                this.item.done = !this.item.done
+            }
         }
     },
     computed: {
         textTime() {
-            return moment(this.item.end_date).lang("ru").from(new Date())
+            if (this.item.done == true) {
+                return { text: 'Задача выполнена', class: 'done', disabled: false }
+            }
+            if (new Date() < new Date(this.item.end_date)) {
+                return { text: moment(this.item.end_date).lang("ru").from(new Date()) + ' закончится срок выполнения', class: "", disabled: false }
+            }
+            return { text: 'Срок выполнения просрочен', class: 'outstanding', disabled: true }
         },
         done() {
             if (this.item.done == true) {
@@ -40,9 +69,22 @@ export default {
     text-decoration: line-through;
 }
 
+.done {
+    font-weight: 700;
+    color: #00cd5c;
+}
+
+.outstanding {
+    font-weight: 700;
+    color: red;
+}
+
 .root {
+
     animation-iteration-count: 1;
     animation: transformScale 0.2s;
+    padding: 5px;
+    border-radius: 10px;
 
     @keyframes transformScale {
         from {
@@ -55,24 +97,27 @@ export default {
     }
 
     display: flex;
-    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
 
+    input {
+        width: 1.3rem;
+        height: 1.3rem;
+        margin-top: 12px;
+
+        @media (max-width: 500px) {
+            margin-top: 8px;
+        }
+    }
 
     div {
-        display: flex;
-        align-items: center;
-        gap: 10px;
         font-size: 1.5rem;
 
         p {
             font-size: 0.9rem;
-            padding: 5px 5px 5px 25px;
         }
     }
 
-    input {
-        width: 0.8em;
-        height: 0.8em;
-    }
+
 }
 </style>

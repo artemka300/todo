@@ -4,7 +4,7 @@
         <div class="HomeUser">
             <div class="HomeUserText">
                 <h5>Hello Artem</h5>
-                <p>Сегодня у вас 4 задачи</p>
+                <p :class="setTaskCountText.class">{{ setTaskCountText.text }}</p>
             </div>
             <img src="../../../static/img/user-boy.png" alt="">
         </div>
@@ -14,10 +14,34 @@
 <script>
 
 export default {
-
+    computed: {
+        setTaskCountText() {
+            const count = this.$store.getters.setTaskToday.length
+            if (count == 0) {
+                return { text: 'Сегодня у вас нет задачи', class: 'done' }
+            }
+            if (count == 1) {
+                return { text: 'Сегодня у вас 1 задача', class: 'outstanding' }
+            }
+            if (count >= 2 && count < 5) {
+                return { text: `Сегодня у вас ${count} задачи`, class: 'outstanding' }
+            }
+            return { text: `Сегодня у вас ${count} задач`, class: 'outstanding' }
+        },
+    }
 }
 </script>
 <style lang="scss" scoped>
+.done {
+    font-weight: 700;
+    color: #00cd5c;
+}
+
+.outstanding {
+    font-weight: 700;
+    color: rgb(32, 32, 32);
+}
+
 .Home {
     position: relative;
     z-index: 1;
