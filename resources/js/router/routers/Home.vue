@@ -14,6 +14,10 @@
 <script>
 
 export default {
+    mounted() {
+        this.$store.dispatch('getPlans');
+        this.$store.dispatch('getImg');
+    },
     computed: {
         setTaskCountText() {
             const count = this.$store.getters.setTaskToday.length

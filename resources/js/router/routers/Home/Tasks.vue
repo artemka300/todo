@@ -1,34 +1,33 @@
 <template>
     <div class="Task" v-if="Object.keys(getPlan).length != 0">
+        <img src="../../../../static/img/back.png" class="back" alt="" @click="$router.back()">
         <AddTask :onShowTask="onShowTask" :showAddTask="showAddTask" />
-        <img v-if="!showAddTask" src="../../../../static/img/plus.png" alt="" @click="onShowTask(true)"
-            class="PlanToDo_AddPlan">
+        <img v-if="!showAddTask && $route.params.id != 'today'" src="../../../../static/img/plus.png" alt=""
+            @click="onShowTask(true)" class="PlanToDo_AddPlan">
         <div class="TaskPlan">
             <img :src="getPlan.img.path" alt="" v-if="$route.params.id != 'today'">
             <img src="../../../../static/img/calendar.png" v-else alt="" class="ToDoIcon">
-            <h5 class="calendar" v-if="$route.params.id == 'today'">{{ dateTime }}</h5>
+            <h5 class="calendar" v-if="$route.params.id == 'today'" @click="pas()">{{ dateTime }}</h5>
             <div class="">
                 <p>{{ taskname }}</p>
                 <h2>{{ getPlan.name }}</h2>
             </div>
         </div>
-        <div class="select-box" v-if="filtersCount(select).length != 0">
+        <input type="range" name="" v-if="pcount > 10" id="" v-model="pdate" min="0" max="40">
+        <div class="select-box" v-if="this.getTask.length != 0">
             <select name="dfdfd" v-model="select">
-                <option value="0">Все - {{ filtersCount(0).length }} </option>
-                <option v-if="filtersCount(1).length !== 0" value="1">Текущие - {{ filtersCount(1).length }} </option>
-                <option v-if="filtersCount(2).length !== 0" value="2">Выполненные - {{ filtersCount(2).length }}
-                </option>
-                <option v-if="filtersCount(3).length !== 0" value="3">Удаленные - {{ filtersCount(3).length }} </option>
+                <option value="0">Все</option>
+                <option v-if="boolselect(1)" value="1">Текущие - {{ filtersCount(1).length }} </option>
+                <option v-if="boolselect(2)" value="2">Выполненные - {{ filtersCount(2).length }} </option>
+                <option v-if="boolselect(3)" value="3">Удаленные - {{ filtersCount(3).length }} </option>
             </select>
         </div>
-
-
-        <div class="TaskItems" v-if="filtersCount(select).length != 0">
+        <div class="TaskItems" v-if="filtersCount(select) != 0">
             <Task v-for="item in filtersCount(select)" :item="item" :key="item.id" />
         </div>
-        <div class="" v-else>
+        <div class="errrtext" v-else>
             <h4 v-if="$route.params.id != 'today'">Создайте задачу</h4>
-                 <h4 v-else>У вас не задач на сегодня</h4>
+            <h4 v-else>У вас нет задач на сегодня</h4>
         </div>
     </div>
 </template>
@@ -43,17 +42,34 @@ export default {
     data() {
         return {
             showAddTask: false,
-            select: 1
+            select: 0,
+            pcount: 0,
+            pdate: 0
         }
     },
     methods: {
+        boolselect(id) {
+            if (this.filtersCount(id).length !== 0) {
+                return true
+            }
+            else {
+                if (id == this.select) {
+                    this.select = 0
+                }
+                return false
+            }
+
+        },
         onShowTask(bool) {
             this.showAddTask = bool;
+        },
+        pas() {
+            this.pcount = this.pcount + 1;
         },
         filtersCount(id) {
             return this.getTask.filter(item => {
                 if (id == 0) {
-                    return item;
+                    return item.del != true;
                 }
                 if (id == 1) {
                     return item.done == false && item.del == false;
@@ -69,7 +85,9 @@ export default {
     },
     computed: {
         dateTime() {
-            return DateFormat.format(new Date(), 'DD')
+            const D = new Date();
+            D.setDate(D.getDate() + this.pdate);
+            return DateFormat.format(D, 'DD')
         },
         getTask() {
             return this.getPlan.tasks ?? []
@@ -98,6 +116,16 @@ export default {
 }
 </script>
 <style lang="scss">
+.errrtext {
+    padding-top: 10px;
+}
+
+.back {
+    height: 40px;
+    margin: 10px;
+    cursor: pointer;
+}
+
 .calendar {
     position: absolute;
     z-index: 3;
@@ -115,17 +143,25 @@ export default {
     padding: 10px;
     border-radius: 10px;
     margin-top: 30px;
+    padding-bottom: 30px;
     background-color: rgb(255 255 255);
     box-shadow: rgb(0 0 0 / 5%) 0 0 30px;
 
     &Plan {
         display: flex;
-        height: 80px;
+
         gap: 15px;
         position: relative;
 
+        div {
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
         img {
             padding: 5px;
+            height: 80px;
         }
     }
 
@@ -161,14 +197,14 @@ export default {
 
     }
 
-
+    margin-top: 20px;
     min-width: 15ch;
     max-width: 25ch;
-    border: 2px solid rebeccapurple;
+    border-bottom: 2px solid rebeccapurple;
     background-color: #fff;
-    margin: 15px 0 5px 0;
     position: relative;
-    border-radius: 5px;
+
+    border-radius: 5px 5px 0px 0px;
 
     &::after {
         content: "";

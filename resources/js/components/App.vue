@@ -5,10 +5,7 @@
 
 <script>
 export default {
-    mounted() {
-        this.$store.dispatch('getPlans');
-        this.$store.dispatch('getImg');
-    },
+   
 };
 </script>
 

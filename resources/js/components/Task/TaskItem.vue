@@ -1,14 +1,14 @@
 <template >
     <div class="root">
-        <input type="checkbox" :checked="item.done" @click="onDoneAPI()" :disabled="textTime.disabled" ref="checked"
+        <input type="checkbox" :checked="item.done" @click="doneTask()" :disabled="textTime.disabled" ref="checked"
             name="a">
         <div>
             <h5 :class="done">{{ item.name }}</h5>
             <p :class="textTime.class">
                 {{ textTime.text }}
             </p>
-
         </div>
+        <img class="remove" @click="deleteTask()" v-if="item.del != true" src="../../../static/img/remove.png" alt="">
     </div>
 </template>
 <script>
@@ -17,8 +17,15 @@ export default {
 
     props: ['item'],
     methods: {
-        onDoneAPI() {
+        deleteTask() {
+            this.item.del = true
+            this.onDoneAPI()
+        },
+        doneTask() {
             this.onChech()
+            this.onDoneAPI()
+        },
+        onDoneAPI() {
             const form = new FormData()
             form.append('id', this.item.id)
             form.append('done', this.item.done)
@@ -29,7 +36,6 @@ export default {
             }).then(r => {
                 if (r.status == 204) {
                     this.$store.dispatch('getPlans');
-                    console.log("юхуууу")
                 }
 
             })
@@ -40,8 +46,14 @@ export default {
                 this.item.done = true
                 this.$refs.checked.checked = true
             }
-            else {
+            else if (this.item.del == false) {
                 this.item.done = !this.item.done
+            }
+            else if (this.item.del == false && this.item.done == true) {
+                this.$refs.checked.checked = false
+            }
+            else {
+                this.$refs.checked.checked = false
             }
         }
     },
@@ -74,17 +86,33 @@ export default {
     color: #00cd5c;
 }
 
+.remove {
+    position: absolute;
+    height: 30px;
+    right: 0;
+    transform: translateY(-50%);
+    top: 50%;
+    padding: 15px;
+    cursor: pointer;
+
+    @media (max-width: 500px) {
+        padding: 5px;
+        height: 25px;
+    }
+}
+
 .outstanding {
     font-weight: 700;
     color: red;
 }
 
 .root {
-
+    position: relative;
     animation-iteration-count: 1;
     animation: transformScale 0.2s;
     padding: 5px;
-    border-radius: 10px;
+
+    border-bottom: solid 1px grey;
 
     @keyframes transformScale {
         from {
@@ -112,6 +140,10 @@ export default {
 
     div {
         font-size: 1.5rem;
+
+        @media (max-width: 500px) {
+            font-size: 1.3rem;
+        }
 
         p {
             font-size: 0.9rem;

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImgController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\TaskController;
@@ -23,6 +24,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::post('/create-plan', [PlanController::class, 'create']);
 Route::get('/get-plan', [PlanController::class, 'get']);
+Route::post('/edit-name-plan', [PlanController::class, 'editname']);
+Route::post('/delete-plan', [PlanController::class, 'delete']);
 
 
 Route::post('/create-img', [ImgController::class, 'create']);
@@ -30,3 +33,7 @@ Route::get('/get-img', [ImgController::class, 'get']);
 
 Route::post('/create-task', [TaskController::class, 'create']);
 Route::post('/update-task', [TaskController::class, 'Update']);
+
+
+Route::post('/checklogin', [AuthController::class, 'CheckLogin']);
+Route::post('/reg', [AuthController::class, 'register']);

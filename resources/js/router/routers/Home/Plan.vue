@@ -54,6 +54,18 @@ export default {
             z-index: 2;
             right: 0;
             bottom: 0;
+            cursor: pointer;
+
+            @media (max-width: 600px) {
+                position: fixed;
+                padding: 15px;
+                height: 50px;
+                z-index: 2;
+                right: 0;
+                bottom: 0;
+            }
+
+
         }
 
         &Items {

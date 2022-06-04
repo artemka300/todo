@@ -19,9 +19,15 @@
         "sass-loader": "^12.1.0",
         "vue-loader": "^16.8.3"
     },
+    "browser": {
+        "crypto": false
+    },
     "dependencies": {
+        "crypto": "^1.0.1",
+        "crypto-js": "^4.1.1",
         "date-and-time": "^2.3.1",
         "moment": "^2.29.3",
+        "password-generator": "^2.3.2",
         "vue": "^3.2.31",
         "vue-router": "^4.0.15",
         "vuex": "^4.0.2",
