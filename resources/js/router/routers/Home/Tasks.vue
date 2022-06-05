@@ -47,9 +47,28 @@ export default {
             pdate: 0
         }
     },
+    watch: {
+        select: {
+            handler(val) {
+                if (1 < val) {
+                    this.showAddTask = false
+                }
+            },
+            deep: true
+        }
+    },
     methods: {
         boolselect(id) {
+
+            if (0 == this.select) {
+                if (this.filtersCount(0).length == 0) {
+                    this.showAddTask = true
+                }
+
+            }
+
             if (this.filtersCount(id).length !== 0) {
+
                 return true
             }
             else {
@@ -69,6 +88,7 @@ export default {
         filtersCount(id) {
             return this.getTask.filter(item => {
                 if (id == 0) {
+
                     return item.del != true;
                 }
                 if (id == 1) {

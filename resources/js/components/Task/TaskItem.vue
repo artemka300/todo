@@ -13,6 +13,7 @@
 </template>
 <script>
 import moment from 'moment';
+import { authFetch } from '../../api'
 export default {
 
     props: ['item'],
@@ -30,10 +31,7 @@ export default {
             form.append('id', this.item.id)
             form.append('done', this.item.done)
             form.append('del', this.item.del)
-            fetch('/api/update-task', {
-                method: 'POST',
-                body: form
-            }).then(r => {
+            authFetch('/api/update-task', 'POST', form).then(r => {
                 if (r.status == 204) {
                     this.$store.dispatch('getPlans');
                 }

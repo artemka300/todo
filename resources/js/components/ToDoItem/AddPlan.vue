@@ -22,6 +22,7 @@
 <script>
 import imgDefault from '../../../static/img/check-list.png'
 import AddImg from './AddImg.vue'
+import { authFetch } from '../../api'
 export default {
     props: ['onShowAddPlan', 'showAddPlan'],
     components: {
@@ -59,10 +60,7 @@ export default {
             const form = new FormData()
             form.append('name', this.name)
             form.append('imgid', this.$store.getters.getIdImg)
-            fetch('/api/create-plan', {
-                method: 'POST',
-                body: form
-            }).then(r => {
+            authFetch('/api/create-plan','POST', form).then(r => {
                 if (r.status == 204) {
                     this.onShowAddPlan(false)
                     this.$store.dispatch('getPlans');

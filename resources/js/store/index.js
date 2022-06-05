@@ -1,12 +1,13 @@
 import { createStore } from 'vuex'
+import { authFetch } from '../api'
 import DateFormat from 'date-and-time';
-// Create a new store instance.
 const store = createStore({
     state() {
         return {
             todo: [],
             imgs: [],
-            idImg: null
+            idImg: null,
+            nameUser: ''
         }
     },
     mutations: {
@@ -16,6 +17,9 @@ const store = createStore({
         setimgs(state, imgs) {
             state.imgs = imgs
         },
+        setNameUser(state, nameUser) {
+            state.nameUser = nameUser
+        },
         setIdimg(state, id) {
             state.idImg = id
         }
@@ -23,6 +27,9 @@ const store = createStore({
     getters: {
         setToDo(state) {
             return state.todo
+        },
+        setUserName(state) {
+            return state.nameUser
         },
         getIdImg(state) {
             return state.idImg
@@ -61,14 +68,20 @@ const store = createStore({
     },
     actions: {
         async getPlans(context) {
-            fetch('/api/get-plan').then(r => r.json()).then(r => {
+            authFetch('/api/get-plan').then(r => r.json()).then(r => {
                 context.commit('updatetodo', r.data)
             })
 
         },
         async getImg(context) {
-            fetch('/api/get-img').then(r => r.json()).then(r => {
+            authFetch('/api/get-img').then(r => r.json()).then(r => {
                 context.commit('setimgs', r.data)
+            })
+
+        },
+        async getUser(context) {
+            authFetch('/api/authcheck').then(r => r.json()).then(r => {
+                context.commit('setNameUser', r.data)
             })
 
         },

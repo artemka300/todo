@@ -1,5 +1,5 @@
 <template >
-    <Popup   :id="item.id" :delPlan="delPlan" v-if="del" />
+    <Popup :id="item.id" :delPlan="delPlan" v-if="del" />
     <div class="ToDo" @mouseleave="MenuBool = false" @click="UrlTask()">
         <img :src="item.img.path" alt="" class="ToDoIcon">
         <div>
@@ -23,6 +23,7 @@
 </template>
 <script>
 import Popup from './PopupDelPlan.vue'
+import { authFetch } from '../../api'
 export default {
     components: {
         Popup
@@ -52,10 +53,7 @@ export default {
             const form = new FormData()
             form.append('id', this.item.id)
             form.append('name', this.name)
-            fetch('/api/edit-name-plan', {
-                method: 'POST',
-                body: form
-            })
+            authFetch('/api/edit-name-plan', 'POST', form)
                 .then(r => {
                     if (r.status == 204) {
                         this.$store.dispatch('getPlans');
@@ -170,19 +168,43 @@ export default {
                     padding: 10px 5px;
                 }
 
+                &:nth-child(1) {
+
+
+
+                    color: rgb(255, 255, 255);
+                    background: #444444;
+
+                    &:hover {
+
+                        color: rgb(66, 55, 55);
+                        background: #ffffff;
+                    }
+                }
+
                 &:nth-child(2) {
-                    background: #205cc9;
-                    color: white;
+                    color: rgb(0, 0, 0);
+                    background: #ececec;
+
+                    &:hover {
+
+                        color: white;
+                        background: #205cc9;
+                    }
                 }
 
                 &:nth-child(3) {
-                    background: #f33333;
-                    color: white;
+
+                    color: rgb(0, 0, 0);
+                    background: #ececec;
+
+                    &:hover {
+                        color: white;
+                        background: #f33333;
+                    }
                 }
 
-                &:hover {
-                    opacity: 0.7;
-                }
+                 
             }
         }
 

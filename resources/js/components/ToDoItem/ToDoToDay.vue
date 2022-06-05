@@ -6,7 +6,7 @@
             <h5>Задачи на сегодня</h5>
             <p>{{ taskname }} </p>
         </div>
-        <img src="../../../static/img/three-dots.png" alt="" class="ToDoEdit">
+        
     </div>
 </template>
 <script>

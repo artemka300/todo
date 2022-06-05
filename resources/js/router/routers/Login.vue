@@ -5,18 +5,24 @@
             <div>
                 <p>{{ textlogin.text }}</p>
                 <span :class="textlogin.class" class="tr-04"></span>
-                <input type="text" @input="placeholderLoginRamdom()" v-model="login" :placeholder="placeholderLogin">
+                <input type="text" @input="placeholderLoginRamdom()" v-debounce:400ms="loginCheck" v-model="login"
+                    :placeholder="placeholderLogin">
             </div>
             <div>
                 <p>{{ textlogin.password }}</p>
-                <input type="password" v-model="password" @input="placeholderRamdom()" :placeholder="placeholder">
+                <input type="password" v-model="password" @input="placeholderRamdom()" v-debounce:400ms="loginCheck"
+                    :placeholder="placeholder">
             </div>
             <router-link to="/reg">Зарегистрироваться?</router-link>
         </div>
     </div>
 </template>
 <script>
+import { vue3Debounce } from 'vue-debounce'
 export default {
+    directives: {
+        debounce: vue3Debounce()
+    },
     data() {
         return {
             placeholder: '',
@@ -35,16 +41,15 @@ export default {
             if (this.password.length == 0) {
                 ps = 'Введите пароль'
             }
-            else if (this.password.length < 6) {
-                ps = 'Ваш пароль небезопасен'
+            else if (this.password.length > 0) {
+                if (this.password.length == 1) {
+                    ps = 'вы ввели ' + this.password.length + ' символ'
+                }
+                if (this.password.length > 1 && this.password.length <= 4) {
+                    ps = 'вы ввели ' + this.password.length + ' символа'
+                }
+                ps = 'вы ввели ' + this.password.length + ' символов'
             }
-            else {
-                ps = ''
-            }
-            if (this.login.length > 5) {
-                this.loginCheck()
-            }
-
             if (this.login.length == 0) {
                 lg = 'Введите логин'
             }
@@ -70,7 +75,11 @@ export default {
         this.placeholderLoginRamdom();
     },
     methods: {
+
         loginCheck() {
+            if (this.login.length < 6) {
+                return 0
+            }
             const form = new FormData()
             form.append('login', this.login)
             form.append('password', this.password)

@@ -27,10 +27,8 @@ class User extends Authenticatable
     ];
     function   generateToken()
     {
-        if ($this->api_token == null) {
-            $this->api_token =  Str::random(60);
-            $this->save();
-        }
+        $this->api_token =  Str::random(60);
+        $this->save();
         return  $this->api_token;
     }
 }

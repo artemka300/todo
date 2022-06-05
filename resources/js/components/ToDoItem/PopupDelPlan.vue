@@ -13,16 +13,14 @@
     </div>
 </template>
 <script>
+import { authFetch } from '../../api'
 export default {
     props: ['id', 'delPlan'],
     methods: {
         DelAPI() {
             const form = new FormData()
             form.append('id', this.id)
-            fetch('/api/delete-plan', {
-                method: 'POST',
-                body: form
-            })
+            authFetch('/api/delete-plan', 'POST', form)
                 .then(r => {
                     if (r.status == 204) {
                         this.$store.dispatch('getPlans');

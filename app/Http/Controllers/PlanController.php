@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Plan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PlanController extends Controller
@@ -14,24 +15,24 @@ class PlanController extends Controller
             'name' => $request->name,
             'del' => false,
             'img_id' => $request->imgid,
-            'user_id' => 1,
+            'user_id' => Auth::user()->id,
         ]);
         return response()->json(null, 204);
     }
     public function get()
     {
-        return response()->json(['data' => Plan::get()], 200);
+        return response()->json(['data' => Plan::where('user_id', '=', Auth::user()->id)->get()], 200);
     }
     public function editname(Request $request)
     {
-        Plan::where('id', '=', $request->id)->update([
+        Plan::where('user_id', '=', Auth::user()->id)->where('id', '=', $request->id)->update([
             'name' => $request->name
         ]);
         return response()->json(null, 204);
     }
     public function delete(Request $request)
     {
-        Plan::where('id', '=', $request->id)->delete();
+        Plan::where('user_id', '=', Auth::user()->id)->where('id', '=', $request->id)->delete();
         return response()->json(null, 204);
     }
 }

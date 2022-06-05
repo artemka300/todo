@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -42,5 +43,11 @@ class AuthController extends Controller
         }
         User::create($request->all());
         return response()->json()->setStatusCode(204);
+    }
+    function authCheck()
+    {
+        return  response()->json([
+            'data' => Auth::user()->name
+        ], 200);
     }
 }

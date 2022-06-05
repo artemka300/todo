@@ -29,6 +29,7 @@
 </template>
 <script>
 import DateFormat from 'date-and-time';
+import { authFetch } from '../../api'
 export default {
     props: ['showAddTask', 'onShowTask'],
     mounted() {
@@ -72,16 +73,12 @@ export default {
             form.append('datenow', DateFormat.format(this.dataNow, 'YYYY-MM-DD HH:mm'))
             form.append('setdate', this.date + ' ' + this.time)
             form.append('idplan', this.$route.params.id)
-            fetch('/api/create-task', {
-                method: 'POST',
-                body: form
-            }).then(r => {
+            authFetch('/api/create-task', 'POST', form).then(r => {
                 if (r.status == 204) {
                     this.name = ''
                     this.$store.dispatch('getPlans');
                     this.onShowTask(false)
                 }
-
             })
         }
     },

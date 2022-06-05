@@ -10,7 +10,8 @@
             <div>
                 <p>{{ textlogin.login.text }}</p>
                 <span :class="textlogin.login.class" class="tr-04"></span>
-                <input type="text" @input="placeholderLoginRamdom()" v-model="login" :placeholder="placeholderLogin">
+                <input type="text" @input="placeholderLoginRamdom()" v-debounce:700ms="loginCheck" v-model="login"
+                    :placeholder="placeholderLogin">
             </div>
             <div>
                 <p>{{ textlogin.password.text }}</p>
@@ -26,7 +27,11 @@
     </div>
 </template>
 <script>
+import { vue3Debounce } from 'vue-debounce'
 export default {
+    directives: {
+        debounce: vue3Debounce()
+    },
     data() {
         return {
             placeholder: '',
@@ -59,9 +64,6 @@ export default {
             else {
                 ps = 'Выполнено'
                 classpassword = 'loginPanelGood'
-            }
-            if (this.login.length > 5) {
-                this.loginCheck()
             }
 
 
@@ -125,6 +127,15 @@ export default {
     },
     methods: {
         reg() {
+            if (this.login.length < 6) {
+                return 0
+            }
+            if (this.name.length < 2) {
+                return 0
+            }
+            if (this.password.length < 6) {
+                return 0
+            }
             const form = new FormData()
             form.append('name', this.name)
             form.append('login', this.login)

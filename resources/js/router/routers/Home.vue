@@ -3,7 +3,7 @@
         <div class="HomeCircle bc-orange "></div>
         <div class="HomeUser">
             <div class="HomeUserText">
-                <h5>Hello Artem</h5>
+                <h5>Hello {{ getUsername }}</h5>
                 <p :class="setTaskCountText.class">{{ setTaskCountText.text }}</p>
             </div>
             <img src="../../../static/img/user-boy.png" alt="">
@@ -17,8 +17,12 @@ export default {
     mounted() {
         this.$store.dispatch('getPlans');
         this.$store.dispatch('getImg');
+        this.$store.dispatch('getUser');
     },
     computed: {
+        getUsername() {
+            return this.$store.getters.setUserName
+        },
         setTaskCountText() {
             const count = this.$store.getters.setTaskToday.length
             if (count == 0) {
