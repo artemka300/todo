@@ -5,19 +5,31 @@
             <div class="HomeUserText">
                 <h5>Hello {{ getUsername }}</h5>
                 <p :class="setTaskCountText.class">{{ setTaskCountText.text }}</p>
+
             </div>
-            <img src="../../../static/img/user-boy.png" alt="">
+            <button class="bc-red c-white" @click="exitPI">выйти</button>
         </div>
         <router-view></router-view>
     </div>
 </template>
 <script>
-
+import { authFetch } from '../../api'
 export default {
     mounted() {
         this.$store.dispatch('getPlans');
         this.$store.dispatch('getImg');
         this.$store.dispatch('getUser');
+    },
+    methods: {
+        exitPI() {
+            authFetch('/api/exit')
+                .then(r => {
+                    if (r.status == 204) {
+                        this.$store.commit('updatetodo', [])
+                        this.$router.push("/login");
+                    }
+                })
+        },
     },
     computed: {
         getUsername() {
@@ -74,7 +86,7 @@ export default {
     &User {
         display: flex;
         height: 80px;
-        align-items: flex-start;
+        align-items: center;
         justify-content: space-between;
         background: rgba(255, 255, 255, 0.5);
         padding: 10px;

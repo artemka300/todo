@@ -50,4 +50,10 @@ class AuthController extends Controller
             'data' => Auth::user()->name
         ], 200);
     }
+    public function logout()
+    {
+        Auth::user()->api_token = null;
+        Auth::user()->save();
+        return response()->json()->setStatusCode(204);
+    }
 }

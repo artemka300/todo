@@ -57,6 +57,9 @@ export default {
     },
     computed: {
         textTime() {
+            if (this.item.del == true) {
+                return { text: 'Удалено', class: 'outstanding', disabled: true }
+            }
             if (this.item.done == true) {
                 return { text: 'Задача выполнена', class: 'done', disabled: false }
             }

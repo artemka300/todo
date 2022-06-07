@@ -108,10 +108,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.tr-04 {
-    transition: cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
-}
-
 .login {
     width: 100%;
     height: 100vh;
@@ -120,14 +116,20 @@ export default {
     align-items: center;
 
     &Panel {
-        width: 300px;
+        max-width: 450px;
         display: flex;
+        flex: 0 1 500px;
+        margin: 15px;
         flex-direction: column;
         gap: 10px;
         padding: 15px;
         border-radius: 10px;
         box-shadow: rgba(0, 0, 0, 0.1) 0 0 50px;
         background: white;
+
+        h3 {
+            font-weight: 400;
+        }
 
         &Bad {
             position: absolute;
@@ -136,8 +138,9 @@ export default {
 
             top: -5px;
             right: 0;
-            transition: cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
-            transform: scale(0.7);
+
+            transform: scale(0.5);
+            opacity: 0.7;
 
             &::after {
                 content: "";
@@ -169,10 +172,11 @@ export default {
             position: absolute;
             width: 50px;
             height: 50px;
-            top: -1px;
+            top: -4px;
             right: -4px;
-            transition: cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
-            transform: scale(0.7);
+
+            transform: scale(0.5);
+            opacity: 0.7;
 
             &::after {
                 content: "";
@@ -201,7 +205,10 @@ export default {
 
         a {
             padding: 5px 10px;
+            color: #580eff;
+            font-weight: 800;
         }
+
 
         div {
             border: 2px solid rgba(0, 0, 0, 0.1);
@@ -209,11 +216,23 @@ export default {
             padding: 5px 10px;
             position: relative;
 
+            p {
+                height: 17px;
+                font-size: 0.6rem;
+                width: 100%;
+            }
+
             input {
                 padding: 0;
                 border: none;
                 border-radius: 0;
                 font-weight: 500;
+                width: calc(100% - 30px);
+                font-size: 1rem;
+
+                &::placeholder {
+                    font-weight: 100;
+                }
             }
         }
     }

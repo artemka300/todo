@@ -169,7 +169,7 @@ export default {
 
     &Plan {
         display: flex;
-
+        align-items: center;
         gap: 15px;
         position: relative;
 
@@ -181,7 +181,7 @@ export default {
 
         img {
             padding: 5px;
-            height: 80px;
+            height: 70px;
         }
     }
 
