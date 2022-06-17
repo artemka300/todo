@@ -3,21 +3,65 @@
         <div class="HomeCircle bc-orange "></div>
         <div class="HomeUser">
             <div class="HomeUserText">
-                <h5>Hello Artem</h5>
-                <p>Сегодня у вас 4 задачи</p>
+                <h5>Hello {{ getUsername }}</h5>
+                <p :class="setTaskCountText.class">{{ setTaskCountText.text }}</p>
+
             </div>
-            <img src="../../../static/img/user-boy.png" alt="">
+            <button class="bc-red c-white" @click="exitPI">выйти</button>
         </div>
         <router-view></router-view>
     </div>
 </template>
 <script>
-
+import { authFetch } from '../../api'
 export default {
-
+    mounted() {
+        this.$store.dispatch('getPlans');
+        this.$store.dispatch('getImg');
+        this.$store.dispatch('getUser');
+    },
+    methods: {
+        exitPI() {
+            authFetch('/api/exit')
+                .then(r => {
+                    if (r.status == 204) {
+                        this.$store.commit('updatetodo', [])
+                        this.$router.push("/login");
+                    }
+                })
+        },
+    },
+    computed: {
+        getUsername() {
+            return this.$store.getters.setUserName
+        },
+        setTaskCountText() {
+            const count = this.$store.getters.setTaskToday.length
+            if (count == 0) {
+                return { text: 'Сегодня у вас нет задачи', class: 'done' }
+            }
+            if (count == 1) {
+                return { text: 'Сегодня у вас 1 задача', class: 'outstanding' }
+            }
+            if (count >= 2 && count < 5) {
+                return { text: `Сегодня у вас ${count} задачи`, class: 'outstanding' }
+            }
+            return { text: `Сегодня у вас ${count} задач`, class: 'outstanding' }
+        },
+    }
 }
 </script>
 <style lang="scss" scoped>
+.done {
+    font-weight: 700;
+    color: #00cd5c;
+}
+
+.outstanding {
+    font-weight: 700;
+    color: rgb(32, 32, 32);
+}
+
 .Home {
     position: relative;
     z-index: 1;
@@ -42,12 +86,13 @@ export default {
     &User {
         display: flex;
         height: 80px;
-        align-items: flex-start;
+        align-items: center;
         justify-content: space-between;
-    background: rgba(255, 255, 255, 0.5);
-    padding: 10px;
-    border-radius: 10px;
-       box-shadow: #00000013 0 0 30px;
+        background: rgba(255, 255, 255, 0.5);
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: #00000013 0 0 30px;
+
         @media (max-width: 500px) {
             height: 65px;
         }

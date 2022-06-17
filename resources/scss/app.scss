@@ -1,47 +1,60 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap");
+
 * {
     padding: 0%;
     margin: 0%;
     text-decoration: none;
     outline: none;
     font-family: "Montserrat", sans-serif;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
 }
-body{
+
+body {
     overflow-x: hidden;
     width: 100vw;
     min-height: 100vh;
     background-color: #f7fcff;
     z-index: -3;
 }
-html{
+
+html {
     overflow-x: hidden;
     width: 100vw;
     min-height: 100vh;
 }
+
 @mixin fontSize($size) {
     font-size: 1em * $size;
+
     @media (max-width: 1200px) {
         font-size: 0.9em * $size;
     }
+
     @media (max-width: 700px) {
         font-size: 0.8em * $size;
     }
+
     @media (max-width: 400px) {
         font-size: 0.7em * $size;
     }
 }
+
 h1 {
     @include fontSize(3);
 }
+
 h2 {
     @include fontSize(2.8);
 }
+
 h3 {
     @include fontSize(2.5);
 }
+
 h4 {
     @include fontSize(2.0);
 }
+
 h5 {
     @include fontSize(1.5);
 }
@@ -52,13 +65,16 @@ h3,
 h4 {
     font-weight: 900;
 }
+
 h5 {
     font-weight: 700;
 }
+
 p {
     font-weight: 300;
     @include fontSize(1);
 }
+
 button {
     font-weight: 500;
     @include fontSize(1.1);
@@ -67,16 +83,19 @@ button {
     border-radius: 5px;
     transition: 0.1s ease-out all;
     cursor: pointer;
+
     &:hover {
         transform: scale(0.9);
     }
 }
+
 input {
     border: 2px solid;
     padding: 8px;
     border-radius: 5px;
     @include fontSize(1.1);
     transition: 0.2s ease-out all;
+
     &:hover {
         border-radius: 10px;
     }
@@ -84,52 +103,66 @@ input {
 
 $color-orange: #f5af2e;
 $color-black: #141414;
-$color-red: #f58c98;
+$color-red: #d72439;
 $color-blue: #c0f6ff;
-$color-grean: #52f5aa;
+$color-grean: #30e581;
 
 .bc-orange {
     background: $color-orange;
 }
+
 .c-orange {
     color: $color-orange;
 }
+
 .br-orange {
     border-color: $color-orange;
 }
+
 .bc-black {
     background: $color-black;
 }
+
 .br-black {
     border-color: $color-black;
 }
+
 .c-black {
     color: $color-black;
 }
+
 .bc-red {
     background: $color-red;
 }
+
 .c-red {
     color: $color-red;
 }
+
 .br-red {
     border-color: $color-red;
 }
+
 .bc-blue {
     background: $color-blue;
 }
+
 .c-blue {
     color: $color-blue;
 }
+
 .br-blue {
     border-color: $color-blue;
 }
+
 .bc-white {
     background: white;
 }
+
 .c-white {
     color: white;
 }
+
 .br-white {
     border-color: white;
 }
@@ -137,16 +170,18 @@ $color-grean: #52f5aa;
 .bc-grean {
     background: $color-grean;
 }
+
 .c-grean {
     color: $color-grean;
 }
+
 .br-grean {
     border-color: $color-grean;
 }
 
 .cnt {
-
     padding: 50px 15%;
+
     @media (max-width: 500px) {
         padding: 25px 5%;
     }

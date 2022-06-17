@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImgController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\TaskController;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,14 +19,27 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('generate', function (){
+    \Illuminate\Support\Facades\Artisan::call('storage:link');
+    echo 'ok';
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/create-plan', [PlanController::class, 'create']);
-Route::get('/get-plan', [PlanController::class, 'get']);
+Route::middleware('auth:api')->post('/create-plan', [PlanController::class, 'create']);
+Route::middleware('auth:api')->get('/get-plan', [PlanController::class, 'get']);
+Route::middleware('auth:api')->post('/edit-name-plan', [PlanController::class, 'editname']);
+Route::middleware('auth:api')->post('/delete-plan', [PlanController::class, 'delete']);
 
 
-Route::post('/create-img', [ImgController::class, 'create']);
+Route::middleware('auth:api')->post('/create-img', [ImgController::class, 'create']);
+Route::middleware('auth:api')->get('/get-img', [ImgController::class, 'get']);
 
-Route::post('/create-task', [TaskController::class, 'create']);
+Route::middleware('auth:api')->post('/create-task', [TaskController::class, 'create']);
+Route::middleware('auth:api')->post('/update-task', [TaskController::class, 'Update']);
+
+Route::middleware('auth:api')->get('/exit', [AuthController::class, 'logout']);
+Route::post('/checklogin', [AuthController::class, 'CheckLogin']);
+Route::post('/reg', [AuthController::class, 'register']);
+Route::middleware('auth:api')->get('/authcheck', [AuthController::class, 'authCheck']);

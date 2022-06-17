@@ -12,15 +12,24 @@
     "devDependencies": {
         "axios": "^0.25",
         "laravel-mix": "^6.0.43",
-        "lodash": "^4.17.19",
+        "lodash": "^4.17.21",
         "postcss": "^8.1.14",
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.51.0",
         "sass-loader": "^12.1.0",
         "vue-loader": "^16.8.3"
     },
+    "browser": {
+        "crypto": false
+    },
     "dependencies": {
+        "crypto": "^1.0.1",
+        "crypto-js": "^4.1.1",
+        "date-and-time": "^2.3.1",
+        "moment": "^2.29.3",
+        "password-generator": "^2.3.2",
         "vue": "^3.2.31",
+        "vue-debounce": "^4.0.0",
         "vue-router": "^4.0.15",
         "vuex": "^4.0.2",
         "webpack": "^5.72.0"

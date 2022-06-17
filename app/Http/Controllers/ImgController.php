@@ -9,12 +9,16 @@ use Illuminate\Support\Facades\Storage;
 
 class ImgController extends Controller
 {
-    public function create(Request $request){
-      $file =  Storage::url(Storage::put('logoplan', $request->img))    ;
+    public function create(Request $request)
+    {
+        $file =  Storage::url(Storage::put('logoplan', $request->img));
         Img::create([
-           'name'=>$request->name,
-           'path'=>$file,
+            'name' => $request->name,
+            'path' => $file,
         ]);
-
-   }
+    }
+    public function get()
+    {
+        return response()->json(['data' => Img::get()], 200);
+    }
 }

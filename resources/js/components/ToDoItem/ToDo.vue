@@ -1,37 +1,96 @@
 <template >
-    <div class="ToDo">
+    <Popup :id="item.id" :delPlan="delPlan" v-if="del" />
+    <div class="ToDo" @mouseleave="MenuBool = false" @click="UrlTask()">
         <img :src="item.img.path" alt="" class="ToDoIcon">
         <div>
-            <h5>{{ item.name }}</h5>
+            <div class="ToDoEditIput" v-if="edit">
+                <input type="text" v-model="name">
+                <button class="bc-grean c-white" @click="editNameAPI">Сохранить</button>
+            </div>
+
+            <h5 v-if="!edit">{{ name }}</h5>
             <p>{{ taskname }}</p>
+
         </div>
-        <img src="../../../static/img/three-dots.png" alt="" class="ToDoEdit">
+        <img src="../../../static/img/three-dots.png" @click.stop="clickMenu()" alt="" class="ToDoEdit"
+            :class="{ 'd-none': MenuBool }">
+        <div :class="{ ToDoEditmenu: MenuBool, 'd-none': !MenuBool }">
+            <p @click.stop="clickMenu()">Закрыть</p>
+            <p @click.stop="edit = true; clickMenu()">Редактировать</p>
+            <p @click.stop="delPlan(); clickMenu()">Удалить</p>
+        </div>
     </div>
 </template>
 <script>
+import Popup from './PopupDelPlan.vue'
+import { authFetch } from '../../api'
 export default {
-    props: ['item'],
-     mounted(){
- 
+    components: {
+        Popup
     },
+    props: ['item'],
+    mounted() {
+
+    },
+    data() {
+        return {
+            MenuBool: false,
+            edit: false,
+            name: this.item.name,
+            del: false,
+        }
+    },
+    methods: {
+        delPlan() {
+            this.del = !this.del
+        },
+        UrlTask() {
+            if (!this.edit) {
+                this.$router.push('/task/' + this.item.id)
+            }
+        },
+        editNameAPI() {
+            const form = new FormData()
+            form.append('id', this.item.id)
+            form.append('name', this.name)
+            authFetch('/api/edit-name-plan', 'POST', form)
+                .then(r => {
+                    if (r.status == 204) {
+                        this.$store.dispatch('getPlans');
+                        this.edit = false
+                    }
+                })
+        },
+        clickMenu() {
+            this.MenuBool = !this.MenuBool
+        }
+    }
+    ,
     computed: {
         taskname() {
             if (this.item.tasks.length == 0) {
                 return 'Нет задач'
             } if (this.item.tasks.length == 1) {
                 return this.item.tasks.length + ' задача'
-            } if (this.item.tasks.length >= 2 && this.item.task < 5) {
+            } if (this.item.tasks.length >= 2 && this.item.tasks.length < 5) {
                 return this.item.tasks.length + ' задачи'
             }
-          return this.item.tasks.length  + ' задач'
+            return this.item.tasks.length + ' задач'
         }
     }
 }
 
 </script>
 <style lang="scss" scoped>
+.d-none {
+    visibility: hidden;
+    position: absolute;
+}
+
 .ToDo {
+    list-style: none;
     position: relative;
+    cursor: pointer;
     display: flex;
     height: 100px;
     justify-content: start;
@@ -41,6 +100,28 @@ export default {
     padding: 15px;
     box-shadow: #0064741c 0 0 30px;
     align-items: center;
+    animation-iteration-count: 1;
+    animation: transformScale 0.3s;
+
+    &EditIput {
+        display: flex;
+        gap: 10px;
+
+        @media (max-width: 750px) {
+            flex-direction: column;
+        }
+    }
+
+    @keyframes transformScale {
+        from {
+            transform: scale(0.1);
+        }
+
+        to {
+            transform: scale(1);
+        }
+    }
+
 
     &Icon {
         height: calc(100% - 30px);
@@ -55,6 +136,80 @@ export default {
         top: 0;
         padding: 15px;
         cursor: pointer;
+
+        @media (max-width: 450px) {
+            position: absolute;
+            height: 15px;
+            right: 0;
+            top: 6px;
+            padding: 7px;
+            cursor: pointer;
+        }
+
+
+
+        &menu {
+            position: absolute;
+            right: 0;
+            top: 0;
+            overflow: hidden;
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0 0 20px;
+
+            p {
+                width: 100%;
+                padding: 5px;
+                background: rgb(255, 255, 255);
+                font-weight: 400;
+                transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.1s;
+
+                @media (max-width: 500px) {
+                    font-size: 1rem;
+                    padding: 10px 5px;
+                }
+
+                &:nth-child(1) {
+
+
+
+                    color: rgb(255, 255, 255);
+                    background: #444444;
+
+                    &:hover {
+
+                        color: rgb(66, 55, 55);
+                        background: #ffffff;
+                    }
+                }
+
+                &:nth-child(2) {
+                    color: rgb(0, 0, 0);
+                    background: #ececec;
+
+                    &:hover {
+
+                        color: white;
+                        background: #205cc9;
+                    }
+                }
+
+                &:nth-child(3) {
+
+                    color: rgb(0, 0, 0);
+                    background: #ececec;
+
+                    &:hover {
+                        color: white;
+                        background: #f33333;
+                    }
+                }
+
+                 
+            }
+        }
+
+
+
     }
 }
 </style>
